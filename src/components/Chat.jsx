@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ChatSidebar from "./ChatSidebar";
-import AskAI from "./askAI";
+import AskAI from "./AskAI";
 
 const Chat = () => {
   const [selectedChatId, setSelectedChatId] = useState(null);
