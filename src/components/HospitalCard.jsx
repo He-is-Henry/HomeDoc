@@ -11,7 +11,21 @@ const HospitalCard = ({
 
   if (hideOther) return null; // hide other cards when one is expanded
 
-  const gUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+  // Deep link (mobile maps app) + Web fallback
+  const appUrl = `geo:${lat},${lon}?q=${lat},${lon}`;
+  const webUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+
+  const handleDirections = (e) => {
+    e.preventDefault();
+
+    // Try to open in mobile app first
+    window.location.href = appUrl;
+
+    // Fallback to web after small delay
+    setTimeout(() => {
+      window.open(webUrl, "_blank");
+    }, 500);
+  };
 
   return (
     <div className="border rounded-lg p-3 shadow-sm h-full">
@@ -34,14 +48,14 @@ const HospitalCard = ({
               {hospital.properties.opening_hours}
             </p>
           )}
-          <a
-            href={gUrl}
-            target="_blank"
-            rel="noreferrer"
+
+          {/* Button instead of plain link */}
+          <button
+            onClick={handleDirections}
             className="text-blue-600 underline text-sm mt-2 inline-block"
           >
             Get directions
-          </a>
+          </button>
         </div>
         <span className="text-blue-500">{expanded ? "▲" : "▼"}</span>
       </div>
