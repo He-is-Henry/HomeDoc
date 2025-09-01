@@ -25,10 +25,9 @@ const NearbyHospitals = () => {
       setPosition([latitude, longitude]);
 
       const res = await fetch(
-        `https://api.geoapify.com/v2/places?categories=healthcare.hospital&filter=circle:${longitude},${latitude},5000&apiKey=${
-          import.meta.env.VITE_GEOAPIFY_KEY
-        }`
+        `/.netlify/functions/nearby-hospitals?lat=${latitude}&lon=${longitude}`
       );
+
       const data = await res.json();
 
       const hospitalsWithDist = (data.features || []).map((h) => {
