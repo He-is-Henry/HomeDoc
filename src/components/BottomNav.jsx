@@ -12,12 +12,12 @@ import { useAuth } from "../hooks/useAuth";
 import { icon } from "leaflet";
 
 const BottomNav = () => {
-  const { accessToken } = useAuth();
+  const { accessToken, loading } = useAuth();
   const links = [
     { to: "/", label: "Feed", icon: Home },
     { to: "/ai", label: "AI", icon: Bot },
     { to: "/symptoms", label: "Checker", icon: Stethoscope },
-    ...(accessToken
+    ...(!loading && accessToken
       ? [
           { to: "/hospitals", icon: Hospital, label: "Hospitals" },
 
